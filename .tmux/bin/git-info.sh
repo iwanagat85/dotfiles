@@ -25,9 +25,6 @@ get_user_email() {
   echo -e `git config --get user.email`
 }
 
-
-echo $@
-
 # check arguments
 for i in "$@"
 do
