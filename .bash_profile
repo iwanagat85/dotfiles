@@ -1,27 +1,37 @@
-JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home
-JAVA_PATH=$JAVA_HOME/bin
-ANDROID_HOME=~/Library/Android/sdk/platform-tools
-PG_HOME=/usr/local/Cellar/postgresql/9.6.4/bin
-PG_DATA=/usr/local/var/postgres
-
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:$JAVA_HOME
-export PATH=$PATH:$JAVA_PATH
-export PATH=$PATH:$ANDROID_HOME
-export PATH=$PATH:$PG_HOME
-export PATH=$PATH:$PG_DATA
-
 if [ -f ~/.bashrc ]; then
-  source ~/.bashrc
+  . ~/.bashrc
 fi
 
-#tmux
-function tm() {
-  if [ -n "${1}" ]; then
-    tmux attach-session -t ${1} || \
-    tmux new-session -s ${1}
-  else
-    tmux attach-session || \
-    tmux new-session
+# auto start tmux
+tmux_count=$(ps -ax | grep '[t]mux' | wc -l)
+if [ $SHLVL -eq 1 ]; then
+  if [ $tmux_count -eq 0 ]; then
+    tmux -u new-session
+  elif [ $tmux_count -eq 1 ]; then
+    tmux -u attach
   fi
-}
+fi
+
+# jenv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+
+
+# tfenv
+export PATH="$HOME/.tfenv/bin:$PATH"
+
+# terraform
+export TF_LOG=DEBUG
+export TF_LOG_PATH='./terraform.log'
+
+# azure cli
+alias az_access_key=/Users/iwanagat81/.azure/az_access_key.sh
+
