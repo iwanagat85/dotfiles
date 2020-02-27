@@ -33,5 +33,5 @@ export TF_LOG=DEBUG
 export TF_LOG_PATH='./terraform.log'
 
 # azure cli
-alias az_access_key=/Users/iwanagat81/.azure/az_access_key.sh
+alias az_access_key=~/.azure/az_access_key.sh
 
