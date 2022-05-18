@@ -1,3 +1,7 @@
+if [ -f ~/.zprofile ]; then
+  . ~/.zprofile
+fi
+
 [ -z "$TMPDIR" ] && TMPDIR=/tmp
 
 ### Contains
@@ -12,12 +16,14 @@ ESC="$(echo -ne '\033')"
 ### Global
 export LANG=en_US.UTF-8
 
-# prompt_setting
-if [ $UID -eq 0 ]; then
-    PS1="\[\033[31m\]\u@\h\[\033[00m\]: \[\033[01m\]\W\[\033[00m\]\\$ "
-else
-    PS1="\[\033[36m\]\u@\h\[\033[00m\]: \[\033[01m\]\W\[\033[00m\]\\$ "
-fi
+# color
+autoload -Uz colors
+colors
+
+# history
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 # bash_alias
 alias ..='cd ..'
